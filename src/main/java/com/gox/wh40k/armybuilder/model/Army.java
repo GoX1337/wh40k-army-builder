@@ -25,6 +25,7 @@ public class Army {
 
     private String detachment;
 
+    @ManyToMany
     private List<Unit> units;
 
 }
