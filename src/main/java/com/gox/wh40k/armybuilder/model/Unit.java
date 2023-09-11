@@ -4,12 +4,10 @@ import jakarta.persistence.*;
 import lombok.Builder;
 import lombok.Data;
 
-import java.util.List;
-
 @Entity
 @Data
 @Builder
-public class Army {
+public class Unit {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -18,13 +16,9 @@ public class Army {
     private String name;
 
     @Enumerated(EnumType.STRING)
-    private Faction faction;
+    private UnitType type;
 
-    @Enumerated(EnumType.STRING)
-    private BattleSize battleSize;
+    private boolean isWarlord;
 
-    private String detachment;
-
-    private List<Unit> units;
-
+    private int cost;
 }
