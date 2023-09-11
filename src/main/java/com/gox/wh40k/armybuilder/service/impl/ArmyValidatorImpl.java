@@ -22,7 +22,8 @@ public class ArmyValidatorImpl implements ArmyValidator {
             }
         }
 
-        return StringUtils.isNotBlank(army.getName())
+        return army.getFaction() != null
+                && StringUtils.isNotBlank(army.getName())
                 && StringUtils.isNotBlank(army.getDetachment())
                 && totalCost <= getMaxPoint(army.getBattleSize())
                 && hasWarlord;

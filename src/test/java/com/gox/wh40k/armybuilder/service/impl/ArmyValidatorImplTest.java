@@ -2,6 +2,7 @@ package com.gox.wh40k.armybuilder.service.impl;
 
 import com.gox.wh40k.armybuilder.model.Army;
 import com.gox.wh40k.armybuilder.model.BattleSize;
+import com.gox.wh40k.armybuilder.model.Faction;
 import com.gox.wh40k.armybuilder.model.Unit;
 import com.gox.wh40k.armybuilder.service.ArmyValidator;
 import org.junit.jupiter.api.BeforeEach;
@@ -36,6 +37,7 @@ public class ArmyValidatorImplTest {
                 .battleSize(BattleSize.INCURSION)
                 .name("army")
                 .detachment("detachment")
+                .faction(Faction.ADEPTA_SORORITAS)
                 .units(List.of(unit1, unit2, unit3))
                 .build();
 
@@ -58,6 +60,7 @@ public class ArmyValidatorImplTest {
                 .battleSize(BattleSize.STRIKE_FORCE)
                 .name("army")
                 .detachment("detachment")
+                .faction(Faction.ADEPTA_SORORITAS)
                 .units(List.of(unit1, unit2, unit3))
                 .build();
 
@@ -80,6 +83,7 @@ public class ArmyValidatorImplTest {
                 .battleSize(BattleSize.ONSLAUGHT)
                 .name("army")
                 .detachment("detachment")
+                .faction(Faction.ADEPTA_SORORITAS)
                 .units(List.of(unit1, unit2, unit3))
                 .build();
 
@@ -101,6 +105,7 @@ public class ArmyValidatorImplTest {
                 .battleSize(BattleSize.INCURSION)
                 .name("army")
                 .detachment("detachment")
+                .faction(Faction.ADEPTA_SORORITAS)
                 .units(List.of(unit1, unit2, unit3))
                 .build();
 
@@ -123,6 +128,7 @@ public class ArmyValidatorImplTest {
                 .battleSize(BattleSize.INCURSION)
                 .name("army")
                 .detachment("detachment")
+                .faction(Faction.ADEPTA_SORORITAS)
                 .units(List.of(unit1, unit2, unit3))
                 .build();
 
@@ -144,6 +150,7 @@ public class ArmyValidatorImplTest {
         Army army = Army.builder()
                 .battleSize(BattleSize.INCURSION)
                 .detachment("detachment")
+                .faction(Faction.ADEPTA_SORORITAS)
                 .units(List.of(unit1, unit2, unit3))
                 .build();
 
@@ -165,6 +172,29 @@ public class ArmyValidatorImplTest {
         Army army = Army.builder()
                 .battleSize(BattleSize.INCURSION)
                 .name("army")
+                .faction(Faction.ADEPTA_SORORITAS)
+                .units(List.of(unit1, unit2, unit3))
+                .build();
+
+        assertThat(armyValidator.validateArmy(army)).isFalse();
+    }
+
+    @Test
+    public void testArmyValidEmptyFaction() {
+        Unit unit1 = Unit.builder()
+                .cost(150)
+                .build();
+        Unit unit2 = Unit.builder()
+                .cost(80)
+                .isWarlord(true)
+                .build();
+        Unit unit3 = Unit.builder()
+                .cost(50)
+                .build();
+        Army army = Army.builder()
+                .battleSize(BattleSize.INCURSION)
+                .name("army")
+                .detachment("detachment")
                 .units(List.of(unit1, unit2, unit3))
                 .build();
 
