@@ -7,20 +7,14 @@ import lombok.Data;
 @Entity
 @Data
 @Builder
-public class Unit {
+public class ArmyEntry {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
-    private String name;
+    @ManyToOne(fetch = FetchType.LAZY)
+    private Unit unit;
 
-    @Enumerated(EnumType.STRING)
-    private Faction faction;
-
-    @Enumerated(EnumType.STRING)
-    private UnitType type;
-
-    private int cost;
-
+    private boolean isWarlord;
 }

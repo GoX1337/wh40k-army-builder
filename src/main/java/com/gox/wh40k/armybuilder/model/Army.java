@@ -25,7 +25,8 @@ public class Army {
 
     private String detachment;
 
-    @ManyToMany
-    private List<Unit> units;
+    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
+    @JoinColumn(name = "army_id")
+    private List<ArmyEntry> entries;
 
 }
