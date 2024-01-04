@@ -9,6 +9,8 @@ import org.springframework.stereotype.Service;
 import java.util.HashMap;
 import java.util.Map;
 
+import static com.gox.wh40k.armybuilder.model.UnitType.CHARACTER;
+
 @Service
 public class ArmyValidatorImpl implements ArmyValidator {
 
@@ -21,31 +23,28 @@ public class ArmyValidatorImpl implements ArmyValidator {
         for (ArmyEntry armyEntry : army.getEntries()) {
             sumPoints += armyEntry.getUnit().getCost();
 
+            long unitId = armyEntry.getUnit().getId();
+            int count = unitCount.get(unitId) == null ? 0 : unitCount.get(unitId);
+
             switch (armyEntry.getUnit().getType()) {
-                case CHARACTER : {
-                    if (armyEntry.isWarlord()) {
-                        if (hasWarlord) {
-                            return false;
-                        } else {
-                            hasWarlord = true;
-                        }
-                    }
-                    break;
-                }
                 case BATTLELINE :
                 case DEDICATED_TRANSPORT: {
-                    long unitId = armyEntry.getUnit().getId();
-                    int count = unitCount.get(unitId) == null ? 0 : unitCount.get(unitId);
                     if (count == 6) {
                         return false;
                     }
                     unitCount.put(unitId, count + 1);
                     break;
                 }
+                case CHARACTER :
                 case OTHER_DATASHEETS:
                 case ALLIED_UNITS: {
-                    long unitId = armyEntry.getUnit().getId();
-                    int count = unitCount.get(unitId) == null ? 0 : unitCount.get(unitId);
+                    if (CHARACTER == armyEntry.getUnit().getType() && armyEntry.isWarlord()) {
+                        if (hasWarlord) {
+                            return false;
+                        } else {
+                            hasWarlord = true;
+                        }
+                    }
                     if (count == 3) {
                         return false;
                     }
